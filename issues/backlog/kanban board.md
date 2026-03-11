@@ -10,4 +10,4 @@ Karten kann man im Board anlegen, ändern und löschen (zeige das durch Icons an
 
 Ein Verschieben nach Done entspricht einem Abhaken.
 
-Überlege dir
+Ein Wechsel zwischen Listenansicht und Kanban Board kann über ein Icon ganz oben erfolgen. Da kann man drauf klicken, dann ist es selektiert und das Kanban Board wird angezeigt. Wenn man es deselektiert, dann wird die Listenansicht angezeigt. (Default: Listenansicht. Aber die Einstellung merken im Browser.)
