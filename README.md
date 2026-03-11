@@ -107,7 +107,13 @@ npm install
    - `SUPABASE_PROJECT_URL`
    - `SUPABASE_ANON_KEY`
    - `BACKEND_SUPABASE_DB_URL` (Postgres-Connection-String)
-3. Lokal `.env` erstellen (oder `.env.example` kopieren) und füllen:
+3. In Supabase unter **Authentication -> URL Configuration** Redirects sauber setzen:
+   - **Site URL**: deine öffentliche Netlify-Domain (z. B. `https://deine-app.netlify.app`)
+   - **Redirect URLs** mindestens:
+     - `http://localhost:8899/*` (lokal mit `netlify dev`)
+     - `http://localhost:5173/*` (lokal mit Vite, falls genutzt)
+     - `https://deine-app.netlify.app/*` (Deployment)
+4. Lokal `.env` erstellen (oder `.env.example` kopieren) und füllen:
 
 ```env
 SUPABASE_PROJECT_URL=...
@@ -115,7 +121,7 @@ SUPABASE_ANON_KEY=...
 BACKEND_SUPABASE_DB_URL=...
 ```
 
-4. Event-Store-Tabellen initialisieren:
+5. Event-Store-Tabellen initialisieren:
 
 ```bash
 npm run init:eventstore
@@ -189,6 +195,7 @@ Hinweis:
 - In **Netlify** laufen Frontend und serverseitige Functions.
 - Beide brauchen dieselben Umgebungsvariablen.
 - Nach Änderungen an Environment Variables in Netlify immer neu deployen.
+- Nach Änderungen an Supabase-Redirect-URLs immer einen neuen E-Mail-Link anfordern (alte Links können ungültig/abgelaufen sein).
 
 ## 11. Vibe-Coding-Guide für Weiterentwicklung im Fork
 
@@ -216,6 +223,10 @@ Gute Prompts für dein AI-Tool:
   - Prüfe `SUPABASE_PROJECT_URL` und `SUPABASE_ANON_KEY` in deiner `.env`.
 - **401/Unauthorized bei API-Aufrufen**
   - Meist kein gültiger Login-Token oder fehlende Supabase-Variablen in Netlify.
+- **E-Mail-Link zeigt auf falsche Domain oder `localhost:3000`**
+  - In Supabase die URL Configuration prüfen (Site URL + Redirect URLs) und danach einen neuen Link erzeugen.
+- **`otp_expired` beim Klick auf E-Mail-Link**
+  - Link ist abgelaufen oder bereits benutzt. Einfach einen neuen Link anfordern.
 - **Event-Store-Fehler**
   - Prüfe `BACKEND_SUPABASE_DB_URL` und führe `npm run init:eventstore` erneut aus.
 
