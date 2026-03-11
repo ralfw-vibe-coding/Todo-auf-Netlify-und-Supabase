@@ -171,7 +171,9 @@ function App() {
   }, [supabase]);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 760px)');
+    const mediaQuery = window.matchMedia(
+      '(max-width: 760px), (max-width: 980px) and (hover: none), (max-width: 980px) and (pointer: coarse)',
+    );
 
     const applyLayoutMode = (matches: boolean) => {
       setIsCompactLayout(matches);

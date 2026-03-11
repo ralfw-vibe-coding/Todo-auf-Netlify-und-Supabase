@@ -230,6 +230,37 @@ button:disabled {
   grid-template-columns: 1fr;
 }
 
+@keyframes mobile-panel-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mobile-panel-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes mobile-panel-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .mobile-panel-overlay {
   position: fixed;
   inset: 0;
@@ -238,6 +269,7 @@ button:disabled {
   padding: 0;
   background: rgba(9, 9, 11, 0.32);
   z-index: 15;
+  animation: mobile-panel-overlay-in 0.22s ease-out;
 }
 
 .mobile-panel-overlay:hover {
@@ -252,6 +284,27 @@ button:disabled {
   display: grid;
   align-content: start;
   gap: 8px;
+}
+
+.workspace-grid.compact .side-pane {
+  position: fixed;
+  top: 88px;
+  bottom: 16px;
+  width: min(340px, calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
+  overflow: auto;
+  box-shadow: 0 12px 30px rgba(9, 9, 11, 0.2);
+  z-index: 20;
+}
+
+.workspace-grid.compact .side-pane-lists {
+  left: 16px;
+  animation: mobile-panel-in-left 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.workspace-grid.compact .side-pane-tags {
+  right: 16px;
+  animation: mobile-panel-in-right 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .side-title {
@@ -746,28 +799,6 @@ button:disabled {
 }
 
 @media (max-width: 760px) {
-  @keyframes mobile-panel-in-left {
-    from {
-      opacity: 0;
-      transform: translateX(-14px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes mobile-panel-in-right {
-    from {
-      opacity: 0;
-      transform: translateX(14px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
   .panel {
     padding: 16px;
   }
@@ -782,27 +813,6 @@ button:disabled {
 
   .workspace-grid {
     grid-template-columns: 1fr;
-  }
-
-  .workspace-grid.compact .side-pane {
-    position: fixed;
-    top: 88px;
-    bottom: 16px;
-    width: min(320px, calc(100vw - 32px));
-    max-width: calc(100vw - 32px);
-    overflow: auto;
-    box-shadow: 0 12px 30px rgba(9, 9, 11, 0.2);
-    z-index: 20;
-  }
-
-  .workspace-grid.compact .side-pane-lists {
-    left: 16px;
-    animation: mobile-panel-in-left 0.2s ease-out;
-  }
-
-  .workspace-grid.compact .side-pane-tags {
-    right: 16px;
-    animation: mobile-panel-in-right 0.2s ease-out;
   }
 
   .panel-toggle span {
