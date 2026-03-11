@@ -230,6 +230,20 @@ button:disabled {
   grid-template-columns: 1fr;
 }
 
+.mobile-panel-overlay {
+  position: fixed;
+  inset: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: rgba(9, 9, 11, 0.32);
+  z-index: 15;
+}
+
+.mobile-panel-overlay:hover {
+  background: rgba(9, 9, 11, 0.32);
+}
+
 .side-pane {
   border: 1px solid #f0f0f1;
   border-radius: 12px;
@@ -746,6 +760,25 @@ button:disabled {
 
   .workspace-grid {
     grid-template-columns: 1fr;
+  }
+
+  .workspace-grid.compact .side-pane {
+    position: fixed;
+    top: 88px;
+    bottom: 16px;
+    width: min(320px, calc(100vw - 32px));
+    max-width: calc(100vw - 32px);
+    overflow: auto;
+    box-shadow: 0 12px 30px rgba(9, 9, 11, 0.2);
+    z-index: 20;
+  }
+
+  .workspace-grid.compact .side-pane-lists {
+    left: 16px;
+  }
+
+  .workspace-grid.compact .side-pane-tags {
+    right: 16px;
   }
 
   .panel-toggle span {

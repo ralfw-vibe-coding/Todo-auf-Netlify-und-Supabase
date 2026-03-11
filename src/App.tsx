@@ -777,6 +777,36 @@ function App() {
     setRevealedListActionsId(null);
   };
 
+  const onToggleListsPanel = () => {
+    if (isCompactLayout) {
+      setShowListsPanel((current) => {
+        const next = !current;
+        if (next) {
+          setShowTagsPanel(false);
+        }
+        return next;
+      });
+      return;
+    }
+
+    setShowListsPanel((current) => !current);
+  };
+
+  const onToggleTagsPanel = () => {
+    if (isCompactLayout) {
+      setShowTagsPanel((current) => {
+        const next = !current;
+        if (next) {
+          setShowListsPanel(false);
+        }
+        return next;
+      });
+      return;
+    }
+
+    setShowTagsPanel((current) => !current);
+  };
+
   return (
     <main className="layout">
       <section className="panel app-panel">
@@ -788,7 +818,7 @@ function App() {
             <button
               type="button"
               className="panel-toggle"
-              onClick={() => setShowListsPanel((current) => !current)}
+              onClick={onToggleListsPanel}
               title={showListsPanel ? 'Listen ausblenden' : 'Listen einblenden'}
             >
               {showListsPanel ? <PanelLeftClose size={14} /> : <PanelLeftOpen size={14} />}
@@ -797,7 +827,7 @@ function App() {
             <button
               type="button"
               className="panel-toggle"
-              onClick={() => setShowTagsPanel((current) => !current)}
+              onClick={onToggleTagsPanel}
               title={showTagsPanel ? 'Tags ausblenden' : 'Tags einblenden'}
             >
               {showTagsPanel ? <PanelRightClose size={14} /> : <PanelRightOpen size={14} />}
@@ -843,8 +873,20 @@ function App() {
         </header>
 
         <section className={workspaceGridClass(isCompactLayout, showListsPanel, showTagsPanel)}>
+          {isCompactLayout && (showListsPanel || showTagsPanel) && (
+            <button
+              type="button"
+              className="mobile-panel-overlay"
+              aria-label="Seitenleiste schließen"
+              onClick={() => {
+                setShowListsPanel(false);
+                setShowTagsPanel(false);
+              }}
+            />
+          )}
+
           {showListsPanel && (
-          <aside className="side-pane">
+          <aside className="side-pane side-pane-lists">
             <p className="side-title side-title-row">
               <List size={14} /> Listen
             </p>
@@ -1127,7 +1169,7 @@ function App() {
           </section>
 
           {showTagsPanel && (
-          <aside className="side-pane">
+          <aside className="side-pane side-pane-tags">
             <p className="side-title side-title-row">
               <CheckCheck size={14} /> Status
             </p>
