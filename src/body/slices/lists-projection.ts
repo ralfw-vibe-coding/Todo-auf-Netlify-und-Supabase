@@ -53,7 +53,12 @@ export function projectActiveLists(
 ): ListView[] {
   return projectLists(events, userId)
     .filter((list) => !list.deleted)
-    .map(({ deleted, ...list }) => list)
+    .map((list) => ({
+      listId: list.listId,
+      userId: list.userId,
+      name: list.name,
+      isDefault: list.isDefault,
+    }))
     .sort((a, b) => {
       if (a.isDefault) return -1;
       if (b.isDefault) return 1;
