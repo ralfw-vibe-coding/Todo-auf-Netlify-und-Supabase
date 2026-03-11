@@ -273,6 +273,7 @@ function App() {
       email: authForm.email,
       password: authForm.password,
       options: {
+        emailRedirectTo: getAuthEmailRedirectUrl(),
         data: {
           username: authForm.username,
         },
@@ -315,7 +316,7 @@ function App() {
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}${window.location.pathname}`,
+        redirectTo: getAuthEmailRedirectUrl(),
       });
 
       if (error) {
@@ -1407,6 +1408,10 @@ function validatePassword(password: string): string | null {
   }
 
   return null;
+}
+
+function getAuthEmailRedirectUrl(): string {
+  return `${window.location.origin}${window.location.pathname}`;
 }
 
 function IconButton(props: {
